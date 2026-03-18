@@ -1,0 +1,19 @@
+{
+  "name": "AstroChitra",
+  "short_name": "AstroChitra",
+  "description": "Vedic Astrology, Kundli, Horoscope & Spiritual Guidance",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f9f7f3",
+  "theme_color": "#654e12",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://astrochitra.com/Astrochitra-color-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "lang": "en-IN"
+}

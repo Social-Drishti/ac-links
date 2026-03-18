@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>AstroChitra</title>
+  <meta name="theme-color" content="#654e12" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="AstroChitra" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand:       #654e12;
+      --brand-dark:  #4a3a0d;
+      --brand-pale:  #f6f1e7;
+      --border:      #e2d9c5;
+      --border-act:  #654e12;
+      --bg:          #f9f7f3;
+      --card:        #ffffff;
+      --text:        #1a1208;
+      --text-muted:  #7a6a40;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      color: var(--text);
+    }
+
+    /* ── Page shell — fills exactly the viewport ── */
+    .page {
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding-top:    env(safe-area-inset-top,    0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      overflow: hidden;
+    }
+
+    /* ── Logo strip ── */
+    .logo-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 16px 13px;
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+    .logo-strip img {
+      height: 48px;
+      width: auto;
+      display: block;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 1fr;
+      gap: 10px;
+      padding: 10px 12px;
+      overflow: hidden;
+    }
+
+    /* ── Card base ── */
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.12s, border-color 0.12s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:active {
+      background: var(--brand-pale);
+      border-color: var(--brand);
+    }
+
+    .card i {
+      font-size: 24px;
+      color: var(--brand);
+      line-height: 1;
+    }
+
+    .card-label {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text);
+      text-align: center;
+      line-height: 1.35;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Full-width card ── */
+    .card-full {
+      grid-column: 1 / -1;
+    }
+
+    /* ── Filled/primary card ── */
+    .card-filled {
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+    .card-filled i,
+    .card-filled .card-label {
+      color: #ffffff;
+    }
+    .card-filled:active {
+      background: var(--brand-dark);
+      border-color: var(--brand-dark);
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="logo-strip">
+    <img src="https://astrochitra.com/Astrochitra-color-logo.svg" alt="AstroChitra" />
+  </div>
+
+  <div class="grid">
+
+    <a class="card" href="https://astrochitra.com" target="_blank" rel="noopener">
+      <i class="fa-solid fa-globe"></i>
+      <span class="card-label">Website</span>
+    </a>
+
+    <a class="card" href="https://g.page/r/Cboa89BrpDYZEAI/review" target="_blank" rel="noopener">
+      <i class="fa-brands fa-google"></i>
+      <span class="card-label">Google Review</span>
+    </a>
+
+    <a class="card" href="https://www.instagram.com/astrochitra.official/" target="_blank" rel="noopener">
+      <i class="fa-brands fa-instagram"></i>
+      <span class="card-label">Instagram</span>
+    </a>
+
+    <a class="card" href="https://whatsapp.com/channel/0029Vb7Tg675K3zL3F5UT91S" target="_blank" rel="noopener">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span class="card-label">WhatsApp</span>
+    </a>
+
+    <a class="card card-full card-filled" href="https://astrochitra.com/consultation" target="_blank" rel="noopener">
+      <i class="fa-solid fa-calendar-check"></i>
+      <span class="card-label">Book an Appointment</span>
+    </a>
+
+    <a class="card" href="tel:+919820616655">
+      <i class="fa-solid fa-phone"></i>
+      <span class="card-label">Call Us</span>
+    </a>
+
+    <a class="card" href="https://www.google.com/maps/dir//Astro+Chitra+-+Best+Astrologer+in+Mumbai,+Apartment+No+B-40%2F158,+Siddha+CHS+LTD,+Siddharth+Nagar,+Goregaon+(West,+Goregaon+East,+Mumbai,+Maharashtra+400104/@19.0825555,72.8789412,11z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3be7b7abcfdbbbf7:0x1936a46bd0f31aba!2m2!1d72.8428128!2d19.1595201?entry=ttu&g_ep=EgoyMDI2MDMxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
+      <i class="fa-solid fa-location-dot"></i>
+      <span class="card-label">Directions</span>
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+      let r = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!r) { r = true; window.location.reload(); }
+      });
+    });
+  }
+</script>
+</body>
+</html>
