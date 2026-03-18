@@ -86,6 +86,13 @@
         overflow: hidden;
       }
 
+      /* Replace icon with logo image */
+.card img.brand-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
       /* ── Offline banner ── */
       #offline-banner {
         display: none;
@@ -620,7 +627,7 @@
           target="_blank"
           rel="noopener"
         >
-          <i class="fa-brands fa-google"></i>
+          <img class="brand-icon" src="./google.png" alt="Google" />
           <span class="card-label">Google Review</span>
         </a>
 
@@ -630,7 +637,7 @@
           target="_blank"
           rel="noopener"
         >
-          <i class="fa-brands fa-instagram"></i>
+          <img class="brand-icon" src="./instagram.png" alt="Instagram" />
           <span class="card-label">Instagram</span>
         </a>
 
@@ -640,7 +647,7 @@
           target="_blank"
           rel="noopener"
         >
-          <i class="fa-brands fa-whatsapp"></i>
+          <img class="brand-icon" src="./whatsapp.png" alt="WhatsApp" />
           <span class="card-label">WhatsApp</span>
         </a>
 
@@ -665,7 +672,7 @@
           target="_blank"
           rel="noopener"
         >
-          <i class="fa-solid fa-location-dot"></i>
+          <img class="brand-icon" src="./google-map-icon.png" alt="Google Maps" />
           <span class="card-label">Directions</span>
         </a>
       </div>
