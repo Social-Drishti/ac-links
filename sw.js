@@ -1,9 +1,8 @@
 /* ============================================================
-   AstroChitra Service Worker v2
-   ── Bump CACHE_VERSION on every deployment ──
+   AstroChitra Service Worker v2 (Modified for Immediate Updates)
    ============================================================ */
 
-const CACHE_VERSION    = 'astrochitra-v2';
+const CACHE_VERSION    = 'astrochitra-v3';
 const STATIC_CACHE     = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE    = `${CACHE_VERSION}-runtime`;
 const ALL_CACHES       = [STATIC_CACHE, RUNTIME_CACHE];
@@ -69,9 +68,14 @@ self.addEventListener('fetch', event => {
   if (request.method !== 'GET') return;
   if (!url.protocol.startsWith('http')) return;
 
-  // ── 1. App shell (same origin) → Cache-First ────────────────
+  // ── 1. App shell (same origin) → Network-First for index.html, Cache-First for others ────────────────
   if (url.origin === self.location.origin) {
-    event.respondWith(cacheFirst(request, STATIC_CACHE));
+    // Use network-first for index.html to ensure immediate updates
+    if (url.pathname === '/index.html' || url.pathname === '/') {
+      event.respondWith(networkFirst(request, RUNTIME_CACHE));
+    } else {
+      event.respondWith(cacheFirst(request, STATIC_CACHE));
+    }
     return;
   }
 
@@ -152,7 +156,7 @@ self.addEventListener('push', event => {
   const options = {
     body:    data.body    || 'New cosmic insight awaits.',
     icon:    './android-chrome-192x192.png',
-    badge:   './android-chrome-192x192.png',
+    badge:   './android-chrome-512x512.png',
     image:   data.image   || undefined,
     vibrate: [200, 100, 200],
     tag:     data.tag     || 'astrochitra-notification',

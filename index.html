@@ -1,621 +1,897 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>AstroChitra</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>AstroChitra</title>
 
-  <meta name="description" content="Vedic Astrology, Kundli, Horoscope & Spiritual Guidance by AstroChitra" />
-  <meta name="theme-color" content="#654e12" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="AstroChitra" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="application-name" content="AstroChitra" />
+    <meta
+      name="description"
+      content="Vedic Astrology, Kundli, Horoscope & Spiritual Guidance by AstroChitra"
+    />
+    <meta name="theme-color" content="#654e12" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="AstroChitra" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="AstroChitra" />
 
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json?v=2" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Nunito:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --brand: #654e12;
+        --brand-dark: #4a3a0d;
+        --brand-light: #8a6a1e;
+        --brand-pale: #f6f1e4;
+        --gold: #c9a84c;
+        --border: #e2d9c5;
+        --bg: #faf8f4;
+        --card: #ffffff;
+        --text: #1a1208;
+        --text-muted: #7a6a40;
+        --radius: 14px;
+        --shadow-sm: 0 2px 8px rgba(101, 78, 18, 0.08);
+        --shadow-md: 0 6px 24px rgba(101, 78, 18, 0.16);
+      }
 
-    :root {
-      --brand:       #654e12;
-      --brand-dark:  #4a3a0d;
-      --brand-light: #8a6a1e;
-      --brand-pale:  #f6f1e4;
-      --gold:        #c9a84c;
-      --border:      #e2d9c5;
-      --bg:          #faf8f4;
-      --card:        #ffffff;
-      --text:        #1a1208;
-      --text-muted:  #7a6a40;
-      --radius:      14px;
-      --shadow-sm:   0 2px 8px rgba(101,78,18,.08);
-      --shadow-md:   0 6px 24px rgba(101,78,18,.16);
-    }
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
 
-    html, body { height: 100%; overflow: hidden; -webkit-font-smoothing: antialiased; }
+      body {
+        background: var(--bg);
+        font-family: "Nunito", system-ui, sans-serif;
+        color: var(--text);
+      }
 
-    body {
-      background: var(--bg);
-      font-family: 'Nunito', system-ui, sans-serif;
-      color: var(--text);
-    }
+      /* ── Page shell ── */
+      .page {
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        overflow: hidden;
+      }
 
-    /* ── Page shell ── */
-    .page {
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      padding-top:    env(safe-area-inset-top,    0px);
-      padding-bottom: env(safe-area-inset-bottom, 0px);
-      overflow: hidden;
-    }
+      /* ── Offline banner ── */
+      #offline-banner {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: #7a3a0a;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 16px;
+        flex-shrink: 0;
+      }
+      #offline-banner.visible {
+        display: flex;
+      }
 
-    /* ── Offline banner ── */
-    #offline-banner {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: #7a3a0a;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 6px 16px;
-      flex-shrink: 0;
-    }
-    #offline-banner.visible { display: flex; }
+      /* ── Install banner ── */
+      #install-banner {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(
+          135deg,
+          var(--brand) 0%,
+          var(--brand-light) 100%
+        );
+        color: #fff;
+        padding: 10px 14px;
+        flex-shrink: 0;
+        animation: slideDown 0.35s ease;
+      }
+      #install-banner.visible {
+        display: flex;
+      }
+      #install-banner .install-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        flex-shrink: 0;
+      }
+      #install-banner .install-text {
+        flex: 1;
+        min-width: 0;
+      }
+      #install-banner .install-text strong {
+        font-size: 12.5px;
+        font-weight: 700;
+        display: block;
+        font-family: "Cinzel", serif;
+      }
+      #install-banner .install-text span {
+        font-size: 11px;
+        opacity: 0.85;
+      }
+      #install-banner .btn-install {
+        background: #fff;
+        color: var(--brand);
+        border: none;
+        border-radius: 20px;
+        padding: 6px 14px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        flex-shrink: 0;
+        font-family: "Nunito", sans-serif;
+      }
+      #install-banner .btn-dismiss {
+        background: transparent;
+        border: none;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 18px;
+        cursor: pointer;
+        padding: 4px;
+        flex-shrink: 0;
+      }
 
-    /* ── Install banner ── */
-    #install-banner {
-      display: none;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
-      color: #fff;
-      padding: 10px 14px;
-      flex-shrink: 0;
-      animation: slideDown .35s ease;
-    }
-    #install-banner.visible { display: flex; }
-    #install-banner .install-icon { width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0; }
-    #install-banner .install-text { flex: 1; min-width: 0; }
-    #install-banner .install-text strong { font-size: 12.5px; font-weight: 700; display: block; font-family: 'Cinzel', serif; }
-    #install-banner .install-text span  { font-size: 11px; opacity: .85; }
-    #install-banner .btn-install {
-      background: #fff; color: var(--brand); border: none; border-radius: 20px;
-      padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer;
-      flex-shrink: 0; font-family: 'Nunito', sans-serif;
-    }
-    #install-banner .btn-dismiss {
-      background: transparent; border: none;
-      color: rgba(255,255,255,.7); font-size: 18px;
-      cursor: pointer; padding: 4px; flex-shrink: 0;
-    }
+      @keyframes slideDown {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
 
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to   { transform: translateY(0);    opacity: 1; }
-    }
+      /* ── Header ── */
+      .header {
+        display: flex;
+        align-items: center;
+        padding: 10px 14px;
+        flex-shrink: 0;
+        border-bottom: 1px solid var(--border);
+        background: var(--card);
+        gap: 10px;
+      }
 
-    /* ── Header ── */
-    .header {
-      display: flex;
-      align-items: center;
-      padding: 10px 14px;
-      flex-shrink: 0;
-      border-bottom: 1px solid var(--border);
-      background: var(--card);
-      gap: 10px;
-    }
+      .brand-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+        min-width: 0;
+      }
+      .brand-group img {
+        height: 42px;
+        width: auto;
+        flex-shrink: 0;
+      }
+      .brand-name {
+        font-family: "Cinzel", serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--brand);
+        letter-spacing: 0.03em;
+        line-height: 1;
+        white-space: nowrap;
+      }
 
-    .brand-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex: 1;
-      min-width: 0;
-    }
-    .brand-group img {
-      height: 42px;
-      width: auto;
-      flex-shrink: 0;
-    }
-    .brand-name {
-      font-family: 'Cinzel', serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--brand);
-      letter-spacing: 0.03em;
-      line-height: 1;
-      white-space: nowrap;
-    }
+      /* Share button */
+      .btn-share {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--brand-pale);
+        border: 1.5px solid var(--border);
+        color: var(--brand);
+        font-size: 17px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+          background 0.12s,
+          transform 0.1s;
+      }
+      .btn-share:active {
+        background: var(--border);
+        transform: scale(0.92);
+      }
 
-    /* Share button */
-    .btn-share {
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      background: var(--brand-pale);
-      border: 1.5px solid var(--border);
-      color: var(--brand);
-      font-size: 17px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
-      -webkit-tap-highlight-color: transparent;
-      transition: background .12s, transform .1s;
-    }
-    .btn-share:active { background: var(--border); transform: scale(.92); }
+      /* ── Grid ── */
+      .grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 1fr; /* key fix: all rows equal height */
+        gap: 10px;
+        padding: 12px;
+        overflow: hidden;
+        min-height: 0;
+      }
 
-    /* ── Grid ── */
-    .grid {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-auto-rows: 1fr;      /* key fix: all rows equal height */
-      gap: 10px;
-      padding: 12px;
-      overflow: hidden;
-      min-height: 0;
-    }
+      /* ── Cards ── */
+      .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--card);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius);
+        text-decoration: none;
+        color: var(--text);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        box-shadow: var(--shadow-sm);
+        transition:
+          background 0.12s,
+          border-color 0.12s,
+          transform 0.1s;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: cardIn 0.4s ease forwards;
+      }
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(
+          135deg,
+          rgba(201, 168, 76, 0.06) 0%,
+          transparent 60%
+        );
+        pointer-events: none;
+      }
+      .card:active {
+        background: var(--brand-pale);
+        border-color: var(--brand);
+        transform: scale(0.97);
+        box-shadow: none;
+      }
+      .card i {
+        font-size: 22px;
+        color: var(--brand);
+        line-height: 1;
+      }
+      .card-label {
+        font-size: 12.5px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1.3;
+      }
 
-    /* ── Cards ── */
-    .card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: var(--card);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      text-decoration: none;
-      color: var(--text);
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      box-shadow: var(--shadow-sm);
-      transition: background .12s, border-color .12s, transform .1s;
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      animation: cardIn .4s ease forwards;
-    }
-    .card::before {
-      content: '';
-      position: absolute; inset: 0; border-radius: inherit;
-      background: linear-gradient(135deg, rgba(201,168,76,.06) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .card:active { background: var(--brand-pale); border-color: var(--brand); transform: scale(.97); box-shadow: none; }
-    .card i { font-size: 22px; color: var(--brand); line-height: 1; }
-    .card-label { font-size: 12.5px; font-weight: 600; text-align: center; line-height: 1.3; }
+      .card-full {
+        grid-column: 1 / -1;
+      }
 
-    .card-full { grid-column: 1 / -1; }
+      .card-filled {
+        background: linear-gradient(
+          135deg,
+          var(--brand) 0%,
+          var(--brand-light) 100%
+        );
+        border-color: transparent;
+        box-shadow: var(--shadow-md);
+      }
+      .card-filled::before {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.12) 0%,
+          transparent 50%
+        );
+      }
+      .card-filled i,
+      .card-filled .card-label {
+        color: #fff;
+      }
+      .card-filled:active {
+        background: var(--brand-dark);
+      }
 
-    .card-filled {
-      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
-      border-color: transparent;
-      box-shadow: var(--shadow-md);
-    }
-    .card-filled::before { background: linear-gradient(135deg, rgba(255,255,255,.12) 0%, transparent 50%); }
-    .card-filled i, .card-filled .card-label { color: #fff; }
-    .card-filled:active { background: var(--brand-dark); }
+      .card:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .card:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .card:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .card:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .card:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .card:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .card:nth-child(7) {
+        animation-delay: 0.35s;
+      }
 
-    .card:nth-child(1) { animation-delay: .05s; }
-    .card:nth-child(2) { animation-delay: .10s; }
-    .card:nth-child(3) { animation-delay: .15s; }
-    .card:nth-child(4) { animation-delay: .20s; }
-    .card:nth-child(5) { animation-delay: .25s; }
-    .card:nth-child(6) { animation-delay: .30s; }
-    .card:nth-child(7) { animation-delay: .35s; }
+      @keyframes cardIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
 
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(12px) scale(.97); }
-      to   { opacity: 1; transform: translateY(0)    scale(1);   }
-    }
-
-    /* ══════════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════════
        Share bottom sheet
     ══════════════════════════════════════════════════════════ */
-    #share-backdrop {
-      position: fixed; inset: 0;
-      background: rgba(26,18,8,.48);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      z-index: 100;
-      opacity: 0; visibility: hidden;
-      transition: opacity .3s, visibility .3s;
-    }
-    #share-backdrop.open { opacity: 1; visibility: visible; }
+      #share-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(26, 18, 8, 0.48);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.3s,
+          visibility 0.3s;
+      }
+      #share-backdrop.open {
+        opacity: 1;
+        visibility: visible;
+      }
 
-    #share-panel {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: var(--card);
-      border-radius: 22px 22px 0 0;
-      padding: 0 20px calc(env(safe-area-inset-bottom, 0px) + 28px);
-      z-index: 101;
-      transform: translateY(100%);
-      transition: transform .38s cubic-bezier(.34,1.38,.64,1);
-      box-shadow: 0 -8px 40px rgba(101,78,18,.2);
-    }
-    #share-panel.open { transform: translateY(0); }
+      #share-panel {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--card);
+        border-radius: 22px 22px 0 0;
+        padding: 0 20px calc(env(safe-area-inset-bottom, 0px) + 28px);
+        z-index: 101;
+        transform: translateY(100%);
+        transition: transform 0.38s cubic-bezier(0.34, 1.38, 0.64, 1);
+        box-shadow: 0 -8px 40px rgba(101, 78, 18, 0.2);
+      }
+      #share-panel.open {
+        transform: translateY(0);
+      }
 
-    .panel-handle {
-      width: 40px; height: 4px;
-      background: var(--border);
-      border-radius: 4px;
-      margin: 14px auto 20px;
-    }
+      .panel-handle {
+        width: 40px;
+        height: 4px;
+        background: var(--border);
+        border-radius: 4px;
+        margin: 14px auto 20px;
+      }
 
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 22px;
-    }
-    .panel-title {
-      font-family: 'Cinzel', serif;
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--brand);
-    }
-    .panel-close {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: var(--brand-pale);
-      border: none;
-      color: var(--text-muted);
-      font-size: 14px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-    }
+      .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+      }
+      .panel-title {
+        font-family: "Cinzel", serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--brand);
+      }
+      .panel-close {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--brand-pale);
+        border: none;
+        color: var(--text-muted);
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
 
-    /* QR block */
-    .qr-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-    .qr-frame {
-      width: 164px; height: 164px;
-      border: 2px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      background: #fff;
-      padding: 10px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .qr-frame img { width: 100%; height: 100%; display: block; border-radius: 4px; }
-    .qr-label { font-size: 12.5px; color: var(--text-muted); font-weight: 500; }
+      /* QR block */
+      .qr-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .qr-frame {
+        width: 164px;
+        height: 164px;
+        border: 2px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .qr-frame img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border-radius: 4px;
+      }
+      .qr-label {
+        font-size: 12.5px;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
 
-    /* Divider */
-    .panel-divider {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 18px;
-      color: var(--text-muted); font-size: 12px; font-weight: 500;
-    }
-    .panel-divider::before, .panel-divider::after {
-      content: ''; flex: 1; height: 1px; background: var(--border);
-    }
+      /* Divider */
+      .panel-divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+        color: var(--text-muted);
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .panel-divider::before,
+      .panel-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
 
-    /* Share action buttons */
-    .share-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      /* Share action buttons */
+      .share-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
 
-    .share-btn {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 8px; padding: 16px 10px;
-      border-radius: var(--radius);
-      border: 1.5px solid var(--border);
-      background: var(--card);
-      cursor: pointer;
-      font-family: 'Nunito', sans-serif;
-      font-size: 13px; font-weight: 600; color: var(--text);
-      -webkit-tap-highlight-color: transparent;
-      transition: background .12s, transform .1s;
-      text-decoration: none;
-    }
-    .share-btn:active { transform: scale(.96); background: var(--brand-pale); border-color: var(--brand); }
-    .share-btn i { font-size: 26px; }
-    .share-btn.whatsapp i { color: #25d366; }
-    .share-btn.native   i { color: var(--brand); }
+      .share-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 16px 10px;
+        border-radius: var(--radius);
+        border: 1.5px solid var(--border);
+        background: var(--card);
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        -webkit-tap-highlight-color: transparent;
+        transition:
+          background 0.12s,
+          transform 0.1s;
+        text-decoration: none;
+      }
+      .share-btn:active {
+        transform: scale(0.96);
+        background: var(--brand-pale);
+        border-color: var(--brand);
+      }
+      .share-btn i {
+        font-size: 26px;
+      }
+      .share-btn.whatsapp i {
+        color: #25d366;
+      }
+      .share-btn.native i {
+        color: var(--brand);
+      }
 
-    /* ── iOS hint ── */
-    #ios-hint {
-      display: none;
-      position: fixed;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
-      left: 12px; right: 12px;
-      background: var(--brand-dark); color: #fff;
-      border-radius: var(--radius);
-      padding: 14px 40px 14px 16px;
-      font-size: 13px; line-height: 1.5;
-      box-shadow: var(--shadow-md); z-index: 98;
-      animation: slideUp .35s cubic-bezier(.34,1.56,.64,1);
-    }
-    #ios-hint.visible { display: block; }
-    #ios-hint .hint-close {
-      position: absolute; top: 10px; right: 12px;
-      background: none; border: none;
-      color: rgba(255,255,255,.7); font-size: 18px; cursor: pointer;
-    }
+      /* ── iOS hint ── */
+      #ios-hint {
+        display: none;
+        position: fixed;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+        left: 12px;
+        right: 12px;
+        background: var(--brand-dark);
+        color: #fff;
+        border-radius: var(--radius);
+        padding: 14px 40px 14px 16px;
+        font-size: 13px;
+        line-height: 1.5;
+        box-shadow: var(--shadow-md);
+        z-index: 98;
+        animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      #ios-hint.visible {
+        display: block;
+      }
+      #ios-hint .hint-close {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 18px;
+        cursor: pointer;
+      }
 
-    @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to   { transform: translateY(0);   opacity: 1; }
-    }
-  </style>
-</head>
-<body>
-<div class="page">
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Offline -->
+      <div id="offline-banner">
+        <i class="fa-solid fa-wifi-slash"></i>
+        You are offline — cached content shown
+      </div>
 
-  <!-- Offline -->
-  <div id="offline-banner">
-    <i class="fa-solid fa-wifi-slash"></i>
-    You are offline — cached content shown
-  </div>
+      <!-- Install prompt -->
+      <div id="install-banner">
+        <img src="android-chrome-192x192.png" alt="" class="install-icon" />
+        <div class="install-text">
+          <strong>AstroChitra</strong>
+          <span>Add to Home Screen for quick access</span>
+        </div>
+        <button class="btn-install" id="btn-install-accept">Install</button>
+        <button
+          class="btn-dismiss"
+          id="btn-install-dismiss"
+          aria-label="Dismiss"
+        >
+          ×
+        </button>
+      </div>
 
-  <!-- Install prompt -->
-  <div id="install-banner">
-    <img src="android-chrome-192x192.png" alt="" class="install-icon" />
-    <div class="install-text">
-      <strong>AstroChitra</strong>
-      <span>Add to Home Screen for quick access</span>
+      <!-- Header: logo + name + share -->
+      <div class="header">
+        <div class="brand-group">
+          <img src="Astrochitra-color-logo.svg" alt="AstroChitra logo" />
+          <span class="brand-name">AstroChitra</span>
+        </div>
+        <button class="btn-share" id="btn-share-open" aria-label="Share">
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
+      </div>
+
+      <!-- Cards -->
+      <div class="grid">
+        <a
+          class="card"
+          href="https://astrochitra.com"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fa-solid fa-globe"></i>
+          <span class="card-label">Website</span>
+        </a>
+
+        <a
+          class="card"
+          href="https://g.page/r/Cboa89BrpDYZEAI/review"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fa-brands fa-google"></i>
+          <span class="card-label">Google Review</span>
+        </a>
+
+        <a
+          class="card"
+          href="https://www.instagram.com/astrochitra.official/"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fa-brands fa-instagram"></i>
+          <span class="card-label">Instagram</span>
+        </a>
+
+        <a
+          class="card"
+          href="https://whatsapp.com/channel/0029Vb7Tg675K3zL3F5UT91S"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+          <span class="card-label">WhatsApp</span>
+        </a>
+
+        <a
+          class="card card-full card-filled"
+          href="https://astrochitra.com/consultation"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fa-solid fa-calendar-check"></i>
+          <span class="card-label">Book an Appointment</span>
+        </a>
+
+        <a class="card" href="tel:+919820616655">
+          <i class="fa-solid fa-phone"></i>
+          <span class="card-label">Call Us</span>
+        </a>
+
+        <a
+          class="card"
+          href="https://www.google.com/maps/dir//Astro+Chitra+-+Best+Astrologer+in+Mumbai,+Apartment+No+B-40%2F158,+Siddha+CHS+LTD,+Siddharth+Nagar,+Goregaon+(West,+Goregaon+East,+Mumbai,+Maharashtra+400104/@19.0825555,72.8789412,11z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3be7b7abcfdbbbf7:0x1936a46bd0f31aba!2m2!1d72.8428128!2d19.1595201?entry=ttu&g_ep=EgoyMDI2MDMxNS4wIKXMDSoASAFQAw%3D%3D"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fa-solid fa-location-dot"></i>
+          <span class="card-label">Directions</span>
+        </a>
+      </div>
     </div>
-    <button class="btn-install" id="btn-install-accept">Install</button>
-    <button class="btn-dismiss" id="btn-install-dismiss" aria-label="Dismiss">×</button>
-  </div>
 
-  <!-- Header: logo + name + share -->
-  <div class="header">
-    <div class="brand-group">
-      <img src="Astrochitra-color-logo.svg" alt="AstroChitra logo" />
-      <span class="brand-name">AstroChitra</span>
+    <!-- Share bottom-sheet -->
+    <div id="share-backdrop"></div>
+    <div
+      id="share-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Share AstroChitra"
+    >
+      <div class="panel-handle"></div>
+
+      <div class="panel-header">
+        <span class="panel-title">Share AstroChitra</span>
+        <button class="panel-close" id="btn-share-close" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- QR Code via free QR API, branded gold-on-white -->
+      <div class="qr-wrap">
+        <div class="qr-frame">
+          <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=0&color=654e12&bgcolor=ffffff&data=https%3A%2F%2Flinks.astrochitra.com"
+            alt="QR code — astrochitra.com"
+            width="144"
+            height="144"
+            loading="lazy"
+          />
+        </div>
+        <span class="qr-label">Scan to open astrochitra.com</span>
+      </div>
+
+      <div class="panel-divider">or share via</div>
+
+      <div class="share-actions">
+        <a
+          class="share-btn whatsapp"
+          href="https://wa.me/?text=Check%20out%20AstroChitra%20%E2%80%94%20Vedic%20Astrology%20%26%20Spiritual%20Guidance%0Ahttps%3A%2F%2Flinks.astrochitra.com"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+          WhatsApp
+        </a>
+        <button class="share-btn native" id="btn-native-share">
+          <i class="fa-solid fa-share-from-square"></i>
+          <span>Share</span>
+        </button>
+      </div>
     </div>
-    <button class="btn-share" id="btn-share-open" aria-label="Share">
-      <i class="fa-solid fa-share-nodes"></i>
-    </button>
-  </div>
 
-  <!-- Cards -->
-  <div class="grid">
-
-    <a class="card" href="https://astrochitra.com" target="_blank" rel="noopener">
-      <i class="fa-solid fa-globe"></i>
-      <span class="card-label">Website</span>
-    </a>
-
-    <a class="card" href="https://g.page/r/Cboa89BrpDYZEAI/review" target="_blank" rel="noopener">
-      <i class="fa-brands fa-google"></i>
-      <span class="card-label">Google Review</span>
-    </a>
-
-    <a class="card" href="https://www.instagram.com/astrochitra.official/" target="_blank" rel="noopener">
-      <i class="fa-brands fa-instagram"></i>
-      <span class="card-label">Instagram</span>
-    </a>
-
-    <a class="card" href="https://whatsapp.com/channel/0029Vb7Tg675K3zL3F5UT91S" target="_blank" rel="noopener">
-      <i class="fa-brands fa-whatsapp"></i>
-      <span class="card-label">WhatsApp</span>
-    </a>
-
-    <a class="card card-full card-filled" href="https://astrochitra.com/consultation" target="_blank" rel="noopener">
-      <i class="fa-solid fa-calendar-check"></i>
-      <span class="card-label">Book an Appointment</span>
-    </a>
-
-    <a class="card" href="tel:+919820616655">
-      <i class="fa-solid fa-phone"></i>
-      <span class="card-label">Call Us</span>
-    </a>
-
-    <a class="card"
-       href="https://www.google.com/maps/dir//Astro+Chitra+-+Best+Astrologer+in+Mumbai,+Apartment+No+B-40%2F158,+Siddha+CHS+LTD,+Siddharth+Nagar,+Goregaon+(West,+Goregaon+East,+Mumbai,+Maharashtra+400104/@19.0825555,72.8789412,11z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3be7b7abcfdbbbf7:0x1936a46bd0f31aba!2m2!1d72.8428128!2d19.1595201?entry=ttu&g_ep=EgoyMDI2MDMxNS4wIKXMDSoASAFQAw%3D%3D"
-       target="_blank" rel="noopener">
-      <i class="fa-solid fa-location-dot"></i>
-      <span class="card-label">Directions</span>
-    </a>
-
-  </div>
-</div>
-
-<!-- Share bottom-sheet -->
-<div id="share-backdrop"></div>
-<div id="share-panel" role="dialog" aria-modal="true" aria-label="Share AstroChitra">
-  <div class="panel-handle"></div>
-
-  <div class="panel-header">
-    <span class="panel-title">Share AstroChitra</span>
-    <button class="panel-close" id="btn-share-close" aria-label="Close">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-  </div>
-
-  <!-- QR Code via free QR API, branded gold-on-white -->
-  <div class="qr-wrap">
-    <div class="qr-frame">
-      <img
-        src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=0&color=654e12&bgcolor=ffffff&data=https%3A%2F%2Flinks.astrochitra.com"
-        alt="QR code — astrochitra.com"
-        width="144" height="144"
-        loading="lazy"
-      />
+    <!-- iOS install hint -->
+    <div id="ios-hint">
+      <button class="hint-close" id="btn-ios-close" aria-label="Close">
+        ×
+      </button>
+      <strong style="font-family: &quot;Cinzel&quot;, serif; font-size: 14px"
+        >Install AstroChitra</strong
+      >
+      <p style="margin-top: 6px; opacity: 0.9">
+        Tap <strong>Share</strong>
+        <i class="fa-solid fa-arrow-up-from-bracket"></i> then
+        <strong>"Add to Home Screen"</strong> for the full app experience.
+      </p>
     </div>
-    <span class="qr-label">Scan to open astrochitra.com</span>
-  </div>
 
-  <div class="panel-divider">or share via</div>
+    <script>
+      /* ── Service Worker ── */
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", async () => {
+          try {
+            const reg = await navigator.serviceWorker.register("./sw.js?v=2");
+            let newWorker = null;
 
-  <div class="share-actions">
-    <a class="share-btn whatsapp"
-       href="https://wa.me/?text=Check%20out%20AstroChitra%20%E2%80%94%20Vedic%20Astrology%20%26%20Spiritual%20Guidance%0Ahttps%3A%2F%2Flinks.astrochitra.com"
-       target="_blank" rel="noopener">
-      <i class="fa-brands fa-whatsapp"></i>
-      WhatsApp
-    </a>
-    <button class="share-btn native" id="btn-native-share">
-      <i class="fa-solid fa-share-from-square"></i>
-      <span>Share</span>
-    </button>
-  </div>
-</div>
+            const checkWaiting = (r) => {
+              if (r.waiting) newWorker = r.waiting;
+            };
+            checkWaiting(reg);
 
-<!-- iOS install hint -->
-<div id="ios-hint">
-  <button class="hint-close" id="btn-ios-close" aria-label="Close">×</button>
-  <strong style="font-family:'Cinzel',serif;font-size:14px;">Install AstroChitra</strong>
-  <p style="margin-top:6px;opacity:.9;">
-    Tap <strong>Share</strong> <i class="fa-solid fa-arrow-up-from-bracket"></i>
-    then <strong>"Add to Home Screen"</strong> for the full app experience.
-  </p>
-</div>
+            reg.addEventListener("updatefound", () => {
+              newWorker = reg.installing;
+              newWorker.addEventListener("statechange", () => {
+                if (
+                  newWorker.state === "installed" &&
+                  navigator.serviceWorker.controller
+                ) {
+                  newWorker.postMessage({ type: "SKIP_WAITING" });
+                }
+              });
+            });
 
-<script>
-/* ── Service Worker ── */
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', async () => {
-    try {
-      const reg = await navigator.serviceWorker.register('./sw.js');
-      let newWorker = null;
-
-      const checkWaiting = (r) => { if (r.waiting) newWorker = r.waiting; };
-      checkWaiting(reg);
-
-      reg.addEventListener('updatefound', () => {
-        newWorker = reg.installing;
-        newWorker.addEventListener('statechange', () => {
-          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            newWorker.postMessage({ type: 'SKIP_WAITING' });
+            navigator.serviceWorker.addEventListener("controllerchange", () => {
+              window.location.reload();
+            });
+          } catch (err) {
+            console.warn("SW:", err);
           }
         });
+      }
+
+      /* ── Offline ── */
+      const offlineBanner = document.getElementById("offline-banner");
+      const setOffline = (v) => offlineBanner.classList.toggle("visible", v);
+      window.addEventListener("online", () => setOffline(false));
+      window.addEventListener("offline", () => setOffline(true));
+      if (!navigator.onLine) setOffline(true);
+
+      /* ── Install prompt ── */
+      let deferredPrompt = null;
+      const installBanner = document.getElementById("install-banner");
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (!sessionStorage.getItem("ac_install_dismissed")) {
+          setTimeout(() => installBanner.classList.add("visible"), 1200);
+        }
       });
 
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        window.location.reload();
+      document
+        .getElementById("btn-install-accept")
+        .addEventListener("click", async () => {
+          installBanner.classList.remove("visible");
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          if (outcome === "dismissed")
+            sessionStorage.setItem("ac_install_dismissed", "1");
+        });
+
+      document
+        .getElementById("btn-install-dismiss")
+        .addEventListener("click", () => {
+          installBanner.classList.remove("visible");
+          sessionStorage.setItem("ac_install_dismissed", "1");
+        });
+
+      window.addEventListener("appinstalled", () => {
+        installBanner.classList.remove("visible");
+        deferredPrompt = null;
       });
-    } catch (err) {
-      console.warn('SW:', err);
-    }
-  });
-}
 
-/* ── Offline ── */
-const offlineBanner = document.getElementById('offline-banner');
-const setOffline = v => offlineBanner.classList.toggle('visible', v);
-window.addEventListener('online',  () => setOffline(false));
-window.addEventListener('offline', () => setOffline(true));
-if (!navigator.onLine) setOffline(true);
+      /* ── Share panel ── */
+      const backdrop = document.getElementById("share-backdrop");
+      const sharePanel = document.getElementById("share-panel");
 
-/* ── Install prompt ── */
-let deferredPrompt = null;
-const installBanner = document.getElementById('install-banner');
+      function openShare() {
+        backdrop.classList.add("open");
+        sharePanel.classList.add("open");
+      }
+      function closeShare() {
+        backdrop.classList.remove("open");
+        sharePanel.classList.remove("open");
+      }
 
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (!sessionStorage.getItem('ac_install_dismissed')) {
-    setTimeout(() => installBanner.classList.add('visible'), 1200);
-  }
-});
+      document
+        .getElementById("btn-share-open")
+        .addEventListener("click", openShare);
+      document
+        .getElementById("btn-share-close")
+        .addEventListener("click", closeShare);
+      backdrop.addEventListener("click", closeShare);
 
-document.getElementById('btn-install-accept').addEventListener('click', async () => {
-  installBanner.classList.remove('visible');
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  if (outcome === 'dismissed') sessionStorage.setItem('ac_install_dismissed', '1');
-});
+      // Swipe down to close
+      let ty0 = 0;
+      sharePanel.addEventListener(
+        "touchstart",
+        (e) => {
+          ty0 = e.touches[0].clientY;
+        },
+        { passive: true },
+      );
+      sharePanel.addEventListener(
+        "touchend",
+        (e) => {
+          if (e.changedTouches[0].clientY - ty0 > 60) closeShare();
+        },
+        { passive: true },
+      );
 
-document.getElementById('btn-install-dismiss').addEventListener('click', () => {
-  installBanner.classList.remove('visible');
-  sessionStorage.setItem('ac_install_dismissed', '1');
-});
+      /* ── Native share / clipboard fallback ── */
+      const btnNative = document.getElementById("btn-native-share");
+      const nativeIcon = btnNative.querySelector("i");
+      const nativeText = btnNative.querySelector("span");
 
-window.addEventListener('appinstalled', () => {
-  installBanner.classList.remove('visible');
-  deferredPrompt = null;
-});
-
-/* ── Share panel ── */
-const backdrop   = document.getElementById('share-backdrop');
-const sharePanel = document.getElementById('share-panel');
-
-function openShare() {
-  backdrop.classList.add('open');
-  sharePanel.classList.add('open');
-}
-function closeShare() {
-  backdrop.classList.remove('open');
-  sharePanel.classList.remove('open');
-}
-
-document.getElementById('btn-share-open').addEventListener('click', openShare);
-document.getElementById('btn-share-close').addEventListener('click', closeShare);
-backdrop.addEventListener('click', closeShare);
-
-// Swipe down to close
-let ty0 = 0;
-sharePanel.addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; }, { passive: true });
-sharePanel.addEventListener('touchend',   e => {
-  if (e.changedTouches[0].clientY - ty0 > 60) closeShare();
-}, { passive: true });
-
-/* ── Native share / clipboard fallback ── */
-const btnNative  = document.getElementById('btn-native-share');
-const nativeIcon = btnNative.querySelector('i');
-const nativeText = btnNative.querySelector('span');
-
-btnNative.addEventListener('click', async () => {
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: 'AstroChitra',
-        text: 'Vedic Astrology, Kundli & Spiritual Guidance',
-        url: 'https://astrochitra.com',
+      btnNative.addEventListener("click", async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: "AstroChitra",
+              text: "Vedic Astrology, Kundli & Spiritual Guidance",
+              url: "https://astrochitra.com",
+            });
+          } catch {}
+        } else {
+          try {
+            await navigator.clipboard.writeText("https://astrochitra.com");
+            nativeIcon.className = "fa-solid fa-check";
+            nativeText.textContent = "Copied!";
+            setTimeout(() => {
+              nativeIcon.className = "fa-solid fa-share-from-square";
+              nativeText.textContent = "Share";
+            }, 2200);
+          } catch {}
+        }
       });
-    } catch {}
-  } else {
-    try {
-      await navigator.clipboard.writeText('https://astrochitra.com');
-      nativeIcon.className = 'fa-solid fa-check';
-      nativeText.textContent = 'Copied!';
-      setTimeout(() => {
-        nativeIcon.className = 'fa-solid fa-share-from-square';
-        nativeText.textContent = 'Share';
-      }, 2200);
-    } catch {}
-  }
-});
 
-/* ── iOS install hint ── */
-const iosHint = document.getElementById('ios-hint');
-if (/iphone|ipad|ipod/i.test(navigator.userAgent)
-    && !window.matchMedia('(display-mode: standalone)').matches
-    && !navigator.standalone
-    && !sessionStorage.getItem('ac_ios_hint')) {
-  setTimeout(() => iosHint.classList.add('visible'), 2500);
-}
-document.getElementById('btn-ios-close').addEventListener('click', () => {
-  iosHint.classList.remove('visible');
-  sessionStorage.setItem('ac_ios_hint', '1');
-});
-</script>
-</body>
+      /* ── iOS install hint ── */
+      const iosHint = document.getElementById("ios-hint");
+      if (
+        /iphone|ipad|ipod/i.test(navigator.userAgent) &&
+        !window.matchMedia("(display-mode: standalone)").matches &&
+        !navigator.standalone &&
+        !sessionStorage.getItem("ac_ios_hint")
+      ) {
+        setTimeout(() => iosHint.classList.add("visible"), 2500);
+      }
+      document.getElementById("btn-ios-close").addEventListener("click", () => {
+        iosHint.classList.remove("visible");
+        sessionStorage.setItem("ac_ios_hint", "1");
+      });
+    </script>
+  </body>
 </html>
