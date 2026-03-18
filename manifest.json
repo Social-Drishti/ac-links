@@ -3,17 +3,82 @@
   "short_name": "AstroChitra",
   "description": "Vedic Astrology, Kundli, Horoscope & Spiritual Guidance",
   "start_url": "./index.html",
+  "id": "/astrochitra/",
   "display": "standalone",
-  "background_color": "#f9f7f3",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "background_color": "#faf8f4",
   "theme_color": "#654e12",
   "orientation": "portrait-primary",
+  "lang": "en-IN",
+  "scope": "./",
+  "categories": ["lifestyle", "health", "education"],
   "icons": [
     {
-      "src": "https://astrochitra.com/Astrochitra-color-logo.svg",
+      "src": "favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "Astrochitra-color-logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ],
-  "lang": "en-IN"
+  "shortcuts": [
+    {
+      "name": "Book Appointment",
+      "short_name": "Book",
+      "description": "Book a Vedic astrology consultation",
+      "url": "https://astrochitra.com/consultation",
+      "icons": [
+        { "src": "android-chrome-192x192.png", "sizes": "192x192" }
+      ]
+    },
+    {
+      "name": "Call Us",
+      "short_name": "Call",
+      "description": "Call AstroChitra directly",
+      "url": "tel:+919820616655",
+      "icons": [
+        { "src": "android-chrome-192x192.png", "sizes": "192x192" }
+      ]
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
 }

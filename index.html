@@ -4,41 +4,67 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>AstroChitra</title>
+
+  <!-- PWA Meta -->
+  <meta name="description" content="Vedic Astrology, Kundli, Horoscope & Spiritual Guidance by AstroChitra" />
   <meta name="theme-color" content="#654e12" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="AstroChitra" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="application-name" content="AstroChitra" />
+
+  <!-- Favicons (local) -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json" />
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --brand:       #654e12;
-      --brand-dark:  #4a3a0d;
-      --brand-pale:  #f6f1e7;
-      --border:      #e2d9c5;
-      --border-act:  #654e12;
-      --bg:          #f9f7f3;
-      --card:        #ffffff;
-      --text:        #1a1208;
-      --text-muted:  #7a6a40;
+      --brand:        #654e12;
+      --brand-dark:   #4a3a0d;
+      --brand-light:  #8a6a1e;
+      --brand-pale:   #f6f1e4;
+      --gold:         #c9a84c;
+      --gold-light:   #e8d49a;
+      --border:       #e2d9c5;
+      --bg:           #faf8f4;
+      --card:         #ffffff;
+      --text:         #1a1208;
+      --text-muted:   #7a6a40;
+      --shadow-sm:    0 2px 8px rgba(101,78,18,.08);
+      --shadow-md:    0 4px 20px rgba(101,78,18,.14);
+      --radius:       14px;
     }
 
     html, body {
       height: 100%;
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     body {
       background: var(--bg);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-family: 'Nunito', system-ui, sans-serif;
       color: var(--text);
     }
 
-    /* ── Page shell — fills exactly the viewport ── */
+    /* ── Page shell ── */
     .page {
       height: 100dvh;
       display: flex;
@@ -46,6 +72,117 @@
       padding-top:    env(safe-area-inset-top,    0px);
       padding-bottom: env(safe-area-inset-bottom, 0px);
       overflow: hidden;
+    }
+
+    /* ── Offline banner ── */
+    #offline-banner {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #7a3a0a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 16px;
+      letter-spacing: 0.03em;
+      flex-shrink: 0;
+      animation: slideDown .3s ease;
+    }
+    #offline-banner.visible { display: flex; }
+
+    /* ── Update toast ── */
+    #update-toast {
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--brand-dark);
+      color: #fff;
+      border-radius: 40px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+      z-index: 999;
+      white-space: nowrap;
+    }
+    #update-toast.visible { transform: translateX(-50%) translateY(0); }
+    #update-toast button {
+      background: var(--gold);
+      color: var(--brand-dark);
+      border: none;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* ── Install banner ── */
+    #install-banner {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
+      color: #fff;
+      padding: 10px 14px;
+      flex-shrink: 0;
+      animation: slideDown .35s ease;
+    }
+    #install-banner.visible { display: flex; }
+    #install-banner .install-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    #install-banner .install-text {
+      flex: 1;
+      min-width: 0;
+    }
+    #install-banner .install-text strong {
+      font-size: 13px;
+      font-weight: 700;
+      display: block;
+      font-family: 'Cinzel', serif;
+    }
+    #install-banner .install-text span {
+      font-size: 11px;
+      opacity: .85;
+    }
+    #install-banner .btn-install {
+      background: #fff;
+      color: var(--brand);
+      border: none;
+      border-radius: 20px;
+      padding: 7px 16px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      font-family: 'Nunito', sans-serif;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    }
+    #install-banner .btn-dismiss {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,.7);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
     }
 
     /* ── Logo strip ── */
@@ -56,10 +193,10 @@
       padding: 14px 16px 13px;
       flex-shrink: 0;
       border-bottom: 1px solid var(--border);
-      background: #ffffff;
+      background: var(--card);
     }
     .logo-strip img {
-      height: 48px;
+      height: 46px;
       width: auto;
       display: block;
     }
@@ -69,9 +206,9 @@
       flex: 1;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-auto-rows: 1fr;
+      grid-template-rows: repeat(3, 1fr);
       gap: 10px;
-      padding: 10px 12px;
+      padding: 12px;
       overflow: hidden;
     }
 
@@ -84,45 +221,60 @@
       gap: 9px;
       background: var(--card);
       border: 1.5px solid var(--border);
-      border-radius: 12px;
+      border-radius: var(--radius);
       text-decoration: none;
       color: var(--text);
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: background 0.12s, border-color 0.12s;
+      transition: background .12s, border-color .12s, box-shadow .12s, transform .1s;
+      box-shadow: var(--shadow-sm);
       position: relative;
       overflow: hidden;
+    }
+
+    /* Shimmer on top edge */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(201,168,76,.06) 0%, transparent 60%);
+      pointer-events: none;
     }
 
     .card:active {
       background: var(--brand-pale);
       border-color: var(--brand);
+      transform: scale(.97);
+      box-shadow: none;
     }
 
     .card i {
-      font-size: 24px;
+      font-size: 22px;
       color: var(--brand);
       line-height: 1;
     }
 
     .card-label {
       font-size: 12.5px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text);
       text-align: center;
-      line-height: 1.35;
+      line-height: 1.3;
       letter-spacing: 0.01em;
     }
 
-    /* ── Full-width card ── */
-    .card-full {
-      grid-column: 1 / -1;
-    }
+    /* Full-width */
+    .card-full { grid-column: 1 / -1; }
 
-    /* ── Filled/primary card ── */
+    /* Filled / primary */
     .card-filled {
-      background: var(--brand);
-      border-color: var(--brand);
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
+      border-color: transparent;
+      box-shadow: var(--shadow-md);
+    }
+    .card-filled::before {
+      background: linear-gradient(135deg, rgba(255,255,255,.12) 0%, transparent 50%);
     }
     .card-filled i,
     .card-filled .card-label {
@@ -130,17 +282,88 @@
     }
     .card-filled:active {
       background: var(--brand-dark);
-      border-color: var(--brand-dark);
+      transform: scale(.97);
+    }
+
+    /* Card entrance animation */
+    .card { opacity: 0; animation: cardIn .4s ease forwards; }
+    .card:nth-child(1) { animation-delay: .05s; }
+    .card:nth-child(2) { animation-delay: .10s; }
+    .card:nth-child(3) { animation-delay: .15s; }
+    .card:nth-child(4) { animation-delay: .20s; }
+    .card:nth-child(5) { animation-delay: .25s; }
+    .card:nth-child(6) { animation-delay: .30s; }
+    .card:nth-child(7) { animation-delay: .35s; }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(12px) scale(.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ── iOS install hint ── */
+    #ios-hint {
+      display: none;
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+      left: 12px; right: 12px;
+      background: var(--brand-dark);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      box-shadow: var(--shadow-md);
+      z-index: 998;
+      animation: slideUp .35s cubic-bezier(.34,1.56,.64,1);
+    }
+    #ios-hint.visible { display: block; }
+    #ios-hint .hint-close {
+      position: absolute;
+      top: 10px; right: 12px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,.7);
+      font-size: 18px;
+      cursor: pointer;
+    }
+    #ios-hint .hint-arrow {
+      text-align: center;
+      font-size: 22px;
+      margin-top: 6px;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to   { transform: translateY(0);   opacity: 1; }
     }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <div class="logo-strip">
-    <img src="https://astrochitra.com/Astrochitra-color-logo.svg" alt="AstroChitra" />
+  <!-- Offline indicator -->
+  <div id="offline-banner">
+    <i class="fa-solid fa-wifi-slash"></i>
+    You are offline — cached content shown
   </div>
 
+  <!-- Install prompt banner (Android/Desktop) -->
+  <div id="install-banner">
+    <img src="android-chrome-192x192.png" alt="" class="install-icon" />
+    <div class="install-text">
+      <strong>AstroChitra</strong>
+      <span>Add to Home Screen for quick access</span>
+    </div>
+    <button class="btn-install" id="btn-install-accept">Install</button>
+    <button class="btn-dismiss" id="btn-install-dismiss" aria-label="Dismiss">×</button>
+  </div>
+
+  <!-- Logo -->
+  <div class="logo-strip">
+    <img src="Astrochitra-color-logo.svg" alt="AstroChitra" />
+  </div>
+
+  <!-- Link grid -->
   <div class="grid">
 
     <a class="card" href="https://astrochitra.com" target="_blank" rel="noopener">
@@ -173,7 +396,9 @@
       <span class="card-label">Call Us</span>
     </a>
 
-    <a class="card" href="https://www.google.com/maps/dir//Astro+Chitra+-+Best+Astrologer+in+Mumbai,+Apartment+No+B-40%2F158,+Siddha+CHS+LTD,+Siddharth+Nagar,+Goregaon+(West,+Goregaon+East,+Mumbai,+Maharashtra+400104/@19.0825555,72.8789412,11z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3be7b7abcfdbbbf7:0x1936a46bd0f31aba!2m2!1d72.8428128!2d19.1595201?entry=ttu&g_ep=EgoyMDI2MDMxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
+    <a class="card"
+       href="https://www.google.com/maps/dir//Astro+Chitra+-+Best+Astrologer+in+Mumbai,+Apartment+No+B-40%2F158,+Siddha+CHS+LTD,+Siddharth+Nagar,+Goregaon+(West,+Goregaon+East,+Mumbai,+Maharashtra+400104/@19.0825555,72.8789412,11z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3be7b7abcfdbbbf7:0x1936a46bd0f31aba!2m2!1d72.8428128!2d19.1595201?entry=ttu&g_ep=EgoyMDI2MDMxNS4wIKXMDSoASAFQAw%3D%3D"
+       target="_blank" rel="noopener">
       <i class="fa-solid fa-location-dot"></i>
       <span class="card-label">Directions</span>
     </a>
@@ -182,16 +407,152 @@
 
 </div>
 
+<!-- SW update toast -->
+<div id="update-toast">
+  <i class="fa-solid fa-rotate"></i>
+  App updated!
+  <button id="btn-reload">Reload</button>
+</div>
+
+<!-- iOS install hint -->
+<div id="ios-hint">
+  <button class="hint-close" id="btn-ios-close" aria-label="Close">×</button>
+  <strong style="font-family:'Cinzel',serif;font-size:14px;">Install AstroChitra</strong>
+  <p style="margin-top:6px;opacity:.9;">
+    Tap <strong>Share</strong> <i class="fa-solid fa-arrow-up-from-bracket"></i>
+    then <strong>"Add to Home Screen"</strong> for the full app experience.
+  </p>
+  <div class="hint-arrow">↓</div>
+</div>
+
 <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
-      let r = false;
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!r) { r = true; window.location.reload(); }
+/* ─────────────────────────────────────────────────────────────
+   Service Worker registration
+───────────────────────────────────────────────────────────── */
+let swRegistration = null;
+let newWorker = null;
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      swRegistration = await navigator.serviceWorker.register('./sw.js');
+
+      // Detect new SW waiting → show update toast
+      const checkWaiting = (reg) => {
+        if (reg.waiting) {
+          newWorker = reg.waiting;
+          showUpdateToast();
+        }
+      };
+      checkWaiting(swRegistration);
+      swRegistration.addEventListener('updatefound', () => {
+        newWorker = swRegistration.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            showUpdateToast();
+          }
+        });
       });
-    });
+
+      // When the controller changes (new SW activated), reload
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        window.location.reload();
+      });
+
+    } catch (err) {
+      console.warn('SW registration failed:', err);
+    }
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Offline / Online detection
+───────────────────────────────────────────────────────────── */
+const offlineBanner = document.getElementById('offline-banner');
+
+function setOffline(isOffline) {
+  offlineBanner.classList.toggle('visible', isOffline);
+}
+window.addEventListener('online',  () => setOffline(false));
+window.addEventListener('offline', () => setOffline(true));
+if (!navigator.onLine) setOffline(true);
+
+/* ─────────────────────────────────────────────────────────────
+   Update toast
+───────────────────────────────────────────────────────────── */
+const updateToast = document.getElementById('update-toast');
+const btnReload   = document.getElementById('btn-reload');
+
+function showUpdateToast() {
+  updateToast.classList.add('visible');
+}
+btnReload.addEventListener('click', () => {
+  if (newWorker) newWorker.postMessage({ type: 'SKIP_WAITING' });
+  else window.location.reload();
+});
+
+/* ─────────────────────────────────────────────────────────────
+   Install prompt — Android / Desktop Chrome
+───────────────────────────────────────────────────────────── */
+const INSTALL_DISMISSED_KEY = 'ac_install_dismissed';
+let deferredPrompt = null;
+const installBanner  = document.getElementById('install-banner');
+const btnAccept      = document.getElementById('btn-install-accept');
+const btnDismiss     = document.getElementById('btn-install-dismiss');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // Don't show again if previously dismissed this session
+  if (!sessionStorage.getItem(INSTALL_DISMISSED_KEY)) {
+    // Small delay so the page loads first
+    setTimeout(() => installBanner.classList.add('visible'), 1200);
   }
+});
+
+btnAccept.addEventListener('click', async () => {
+  installBanner.classList.remove('visible');
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  if (outcome === 'dismissed') sessionStorage.setItem(INSTALL_DISMISSED_KEY, '1');
+});
+
+btnDismiss.addEventListener('click', () => {
+  installBanner.classList.remove('visible');
+  sessionStorage.setItem(INSTALL_DISMISSED_KEY, '1');
+});
+
+// Hide banner once installed
+window.addEventListener('appinstalled', () => {
+  installBanner.classList.remove('visible');
+  deferredPrompt = null;
+});
+
+/* ─────────────────────────────────────────────────────────────
+   iOS Safari install hint
+───────────────────────────────────────────────────────────── */
+const IOS_HINT_KEY = 'ac_ios_hint_shown';
+const iosHint      = document.getElementById('ios-hint');
+const btnIosClose  = document.getElementById('btn-ios-close');
+
+function isIos() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+function isInStandaloneMode() {
+  return window.matchMedia('(display-mode: standalone)').matches
+    || window.navigator.standalone === true;
+}
+
+if (isIos() && !isInStandaloneMode() && !sessionStorage.getItem(IOS_HINT_KEY)) {
+  setTimeout(() => iosHint.classList.add('visible'), 2000);
+}
+btnIosClose.addEventListener('click', () => {
+  iosHint.classList.remove('visible');
+  sessionStorage.setItem(IOS_HINT_KEY, '1');
+});
 </script>
 </body>
 </html>
